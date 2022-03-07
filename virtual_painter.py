@@ -17,8 +17,17 @@ height = cap.get(cv2.CAP_PROP_FRAME_HEIGHT)
 print(width, height)
 
 while True:
+    # 1. Import Image
     success, img = cap.read()
+    img = cv2.flip(img, 1)
 
+    # 2. Find Hand Landmarks
+    
+    # 3. Fingers Up or NOT
+    # 4. Index and middle finger Up - Selection Mode
+    # 5. If Index finger Up - Drawing Mode
+
+    # Setting Header Image
     img[0:70, 0:640] = over_lay[0]
 
     cv2.imshow("Image", img)
