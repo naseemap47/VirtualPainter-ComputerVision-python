@@ -2,6 +2,10 @@ import cv2
 import os
 import mediapipe as mp
 
+###############################
+bresh_thickness = 5
+###############################
+
 folder_path = 'Header Images'
 img_list = os.listdir(folder_path)
 img_list.sort()
@@ -25,6 +29,7 @@ mp_draw = mp.solutions.drawing_utils
 
 header = over_lay[0]
 color = (255, 0, 255)
+xp, yp = 0, 0
 
 while True:
     # 1. Import Image
@@ -51,7 +56,7 @@ while True:
                     # 4. Index and middle finger Up - Selection Mode
                     if lm_list[8][2] < lm_list[6][2] and lm_list[12][2] < lm_list[10][2]:
                         # print('Index and Middle fingers are Up')
-                        cv2.rectangle(img, (x1, y1), (x2, y2), color, cv2.FILLED)
+                        cv2.rectangle(img, (x1, y1-10), (x2, y2+10), color, cv2.FILLED)
                         if y1 < 70:
                             if 10 < x1 < 140:
                                 img[0:70, 0:640] = over_lay[0]
@@ -70,6 +75,11 @@ while True:
                     elif lm_list[8][2] < lm_list[6][2]:
                         # print('Index finger is Up')
                         cv2.circle(img, (x1, y1), 8, color, cv2.FILLED)
+
+                        if xp==0 and yp==0:
+                            xp, yp = x1, y1
+                        cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
+                        xp, yp = x1, y1
 
     cv2.imshow("Image", img)
     cv2.waitKey(1)
