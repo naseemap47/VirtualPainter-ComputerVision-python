@@ -36,11 +36,19 @@ while True:
                 img_height, img_width, channel = img.shape
                 x, y = int(lm.x * img_width), int(lm.y * img_height)
                 lm_list.append([id, x, y])
-                print(lm_list)
-    # 3. Fingers Up or NOT
-    # 4. Index and middle finger Up - Selection Mode
-    # 5. If Index finger Up - Drawing Mode
+                # print(lm_list)
+                # 3. Fingers Up or NOT
+                if len(lm_list) > 20:
+                    x1, y1 = lm_list[8][1:]
+                    x2, y2 = lm_list[12][1:]
 
+                    # 4. Index and middle finger Up - Selection Mode
+                    if lm_list[8][2] < lm_list[6][2] and lm_list[12][2] < lm_list[10][2]:
+                        print('Index and Middle fingers are Up')
+
+                    # 5. If Index finger Up - Drawing Mode
+                    elif lm_list[8][2] < lm_list[6][2]:
+                        print('Index finger is Up')
     # Setting Header Image
     img[0:70, 0:640] = over_lay[0]
 
