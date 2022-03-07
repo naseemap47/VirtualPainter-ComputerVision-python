@@ -38,8 +38,7 @@ while True:
     # 1. Import Image
     success, img = cap.read()
     img = cv2.flip(img, 1)
-    # Setting Header Image
-    img[0:70, 0:640] = header
+
     # 2. Find Hand Landmarks
     img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
     result = hand.process(img_rgb)
@@ -62,16 +61,16 @@ while True:
                         cv2.rectangle(img, (x1, y1-10), (x2, y2+10), color, cv2.FILLED)
                         if y1 < 70:
                             if 10 < x1 < 140:
-                                img[0:70, 0:640] = over_lay[0]
+                                header = over_lay[0]
                                 color = (255, 0, 0)
                             elif 180 < x1 < 300:
-                                img[0:70, 0:640] = over_lay[1]
+                                header = over_lay[1]
                                 color = (0, 0, 255)
                             elif 340 < x1 < 460:
-                                img[0:70, 0:640] = over_lay[2]
+                                header = over_lay[2]
                                 color = (0, 255, 0)
                             elif 470 < x1 < 660:
-                                img[0:70, 0:640] = over_lay[3]
+                                header = over_lay[3]
                                 color = (0, 0, 0)
 
                     # 5. If Index finger Up - Drawing Mode
@@ -89,6 +88,8 @@ while True:
                             cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
                         xp, yp = x1, y1
 
+    # Setting Header Image
+    img[0:70, 0:640] = header
     cv2.imshow("Image", img)
     cv2.imshow("Canvas", img_canvas)
     cv2.waitKey(1)
