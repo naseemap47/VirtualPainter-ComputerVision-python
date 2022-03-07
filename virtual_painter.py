@@ -1,6 +1,7 @@
 import cv2
 import os
 import mediapipe as mp
+import numpy as np
 
 ###############################
 bresh_thickness = 5
@@ -30,6 +31,7 @@ mp_draw = mp.solutions.drawing_utils
 header = over_lay[0]
 color = (255, 0, 255)
 xp, yp = 0, 0
+img_canvas = np.zeros((480, 640, 3), np.uint8)
 
 while True:
     # 1. Import Image
@@ -79,7 +81,9 @@ while True:
                         if xp==0 and yp==0:
                             xp, yp = x1, y1
                         cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
+                        cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
                         xp, yp = x1, y1
 
     cv2.imshow("Image", img)
+    cv2.imshow("Canvas", img_canvas)
     cv2.waitKey(1)
