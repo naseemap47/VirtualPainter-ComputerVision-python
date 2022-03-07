@@ -44,11 +44,13 @@ while True:
 
                     # 4. Index and middle finger Up - Selection Mode
                     if lm_list[8][2] < lm_list[6][2] and lm_list[12][2] < lm_list[10][2]:
-                        print('Index and Middle fingers are Up')
+                        # print('Index and Middle fingers are Up')
+                        cv2.rectangle(img, (x1, y1), (x2, y2), (255, 0, 255), cv2.FILLED)
 
                     # 5. If Index finger Up - Drawing Mode
                     elif lm_list[8][2] < lm_list[6][2]:
-                        print('Index finger is Up')
+                        # print('Index finger is Up')
+                        cv2.circle(img, (x1, y1), 8, (255, 0, 255), cv2.FILLED)
     # Setting Header Image
     img[0:70, 0:640] = over_lay[0]
 
