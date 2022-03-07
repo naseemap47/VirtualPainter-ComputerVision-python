@@ -1,5 +1,10 @@
 import cv2
-import mediapipe
+import os
+
+folder_path = 'Header Images'
+img_list = os.listdir(folder_path)
+img_list.sort()
+print(img_list)
 
 cap = cv2.VideoCapture(0)
 cap.set(3, 1020)
