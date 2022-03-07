@@ -5,6 +5,7 @@ import numpy as np
 
 ###############################
 bresh_thickness = 5
+eraser_thickness = 35
 ###############################
 
 folder_path = 'Header Images'
@@ -80,8 +81,12 @@ while True:
 
                         if xp==0 and yp==0:
                             xp, yp = x1, y1
-                        cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
-                        cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
+                        if color == (0, 0, 0):
+                            cv2.line(img, (xp, yp), (x1, y1), color, eraser_thickness)
+                            cv2.line(img_canvas, (xp, yp), (x1, y1), color, eraser_thickness)
+                        else:
+                            cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
+                            cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
                         xp, yp = x1, y1
 
     cv2.imshow("Image", img)
