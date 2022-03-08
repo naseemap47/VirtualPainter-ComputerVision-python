@@ -88,16 +88,20 @@ while True:
                             cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
                             cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
                         xp, yp = x1, y1
+
     # Gray Image
     gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-    _, inv_img = cv2.threshold(gray_img, 50, 255, cv2.THRESH_BINARY_INV)
+    # Binary Inverted Image
+    _, inv_img = cv2.threshold(gray_img, 300, 255, cv2.THRESH_BINARY_INV)
     inv_img = cv2.cvtColor(inv_img, cv2.COLOR_GRAY2BGR)
+    img = cv2.bitwise_and(img, inv_img)
+    img = cv2.bitwise_or(img, img_canvas)
 
 
     # Setting Header Image
     img[0:70, 0:640] = header
-    img = cv2.addWeighted(img, 0.5, img_canvas, 0.5, 0)
+    # img = cv2.addWeighted(img, 0.5, img_canvas, 0.5, 0)
     cv2.imshow("Image", img)
-    cv2.imshow("Canvas", img_canvas)
-    cv2.imshow('Inverse', inv_img)
+    # cv2.imshow("Canvas", img_canvas)
+    # cv2.imshow('Inverse', inv_img)
     cv2.waitKey(1)
