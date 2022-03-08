@@ -31,7 +31,7 @@ mp_draw = mp.solutions.drawing_utils
 
 header = over_lay[0]
 color = (255, 0, 255)
-xp, yp = 0, 0
+
 img_canvas = np.zeros((480, 640, 3), np.uint8)
 
 while True:
@@ -57,6 +57,7 @@ while True:
 
                     # 4. Index and middle finger Up - Selection Mode
                     if lm_list[8][2] < lm_list[6][2] and lm_list[12][2] < lm_list[10][2]:
+                        xp, yp = 0, 0
                         # print('Index and Middle fingers are Up')
                         cv2.rectangle(img, (x1, y1-10), (x2, y2+10), color, cv2.FILLED)
                         if y1 < 70:
@@ -78,7 +79,7 @@ while True:
                         # print('Index finger is Up')
                         cv2.circle(img, (x1, y1), 8, color, cv2.FILLED)
 
-                        if xp==0 and yp==0:
+                        if xp == 0 and yp == 0:
                             xp, yp = x1, y1
                         if color == (0, 0, 0):
                             cv2.line(img, (xp, yp), (x1, y1), color, eraser_thickness)
@@ -87,10 +88,16 @@ while True:
                             cv2.line(img, (xp, yp), (x1, y1), color, bresh_thickness)
                             cv2.line(img_canvas, (xp, yp), (x1, y1), color, bresh_thickness)
                         xp, yp = x1, y1
+    # Gray Image
+    gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    _, inv_img = cv2.threshold(gray_img, 50, 255, cv2.THRESH_BINARY_INV)
+    inv_img = cv2.cvtColor(inv_img, cv2.COLOR_GRAY2BGR)
+
 
     # Setting Header Image
     img[0:70, 0:640] = header
     img = cv2.addWeighted(img, 0.5, img_canvas, 0.5, 0)
     cv2.imshow("Image", img)
     cv2.imshow("Canvas", img_canvas)
+    cv2.imshow('Inverse', inv_img)
     cv2.waitKey(1)
