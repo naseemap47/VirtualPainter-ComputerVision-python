@@ -30,7 +30,7 @@ hand = mp_hand.Hands(max_num_hands=1,
 mp_draw = mp.solutions.drawing_utils
 
 header = over_lay[0]
-color = (255, 0, 255)
+color = (255, 0, 0)
 
 img_canvas = np.zeros((480, 640, 3), np.uint8)
 
@@ -96,7 +96,6 @@ while True:
     inv_img = cv2.cvtColor(inv_img, cv2.COLOR_GRAY2BGR)
     img = cv2.bitwise_and(img, inv_img)
     img = cv2.bitwise_or(img, img_canvas)
-
 
     # Setting Header Image
     img[0:70, 0:640] = header
