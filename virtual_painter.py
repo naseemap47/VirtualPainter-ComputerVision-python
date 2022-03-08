@@ -90,6 +90,7 @@ while True:
 
     # Setting Header Image
     img[0:70, 0:640] = header
+    img = cv2.addWeighted(img, 0.5, img_canvas, 0.5, 0)
     cv2.imshow("Image", img)
     cv2.imshow("Canvas", img_canvas)
     cv2.waitKey(1)
